@@ -68,7 +68,7 @@ This section provides a guide to setup the desired infrastructure. We start from
 
 Please import following project into TIA Portal v21 and deploy it to PLCSIM Advanced v8.
 Make sure that PLCSIM Advanced is in the same network as the IEDs.
-The project can be found [here](src/tia_portal_project/hm24_iih2iih_simple_production_line.zap19).
+The project can be found [here](src/tia_portal_project/hm24_iih2iih_simple_production_line.zap21).
 
 The simulation replicates a simple production factory with three different steps. First the produt is assembled by the *Assembling Machine*, then the *Enclosure Assembly* adds an enclosure and finally the product is tested and packaged by the *Testing and Packaging* Machine. All tree machines produce different varrying parameters that can be observed and extracted via OPC-UA High Performance or S7+. 
 
