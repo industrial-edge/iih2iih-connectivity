@@ -42,24 +42,21 @@ This tutorial describes the steps, that are necessary to create a synchronized c
 - Industrial Edge Management System (IEM)
 - Four onboarded Industrial Edge Devices (IEDs)
   - IED **in**dependent Installations:
-    - Common Configurator
-    - Common Import Converter
-    - Databus
-    - IIH Essentials
-    - IIH Semantics
-    - Registry Service
+    - Common Configurator v2.6
+    - Databus v4.0
+    - IIH Essentials v2.6
+    - IIH Semantics v2.6
   - IED dependent installations:
     - *Child One*
-      - Simatic S7 Connector
+      - Simatic S7+ Connector
     - *Child Two*
       - Simatic S7+ Connector
     - *Child Three*
-      - OPC UA Connector
+      - OPC UA High Performance Connector
     - *Parent*
-      - OPC UA Connector
-      - External Databus
-- TIA Portal v19
-- PLCSIM Advanced v5
+      - OPC UA High Performance Connector
+- TIA Portal v21
+- PLCSIM Advanced v8
 - Insights Hub Tenant
 
 
@@ -69,11 +66,11 @@ This section provides a guide to setup the desired infrastructure. We start from
 
 ### Setup PLC Simulation
 
-Please import following project into TIA Portal v19 and deploy it to PLCSIM Advanced v5.
+Please import following project into TIA Portal v21 and deploy it to PLCSIM Advanced v8.
 Make sure that PLCSIM Advanced is in the same network as the IEDs.
 The project can be found [here](src/tia_portal_project/hm24_iih2iih_simple_production_line.zap19).
 
-The simulation replicates a simple production factory with three different steps. First the produt is assembled by the *Assembling Machine*, then the *Enclosure Assembly* adds an enclosure and finally the product is tested and packaged by the *Testing and Packaging* Machine. All tree machines produce different varrying parameters that can be observed and extracted via OPC-UA, S7+ or S7. 
+The simulation replicates a simple production factory with three different steps. First the produt is assembled by the *Assembling Machine*, then the *Enclosure Assembly* adds an enclosure and finally the product is tested and packaged by the *Testing and Packaging* Machine. All tree machines produce different varrying parameters that can be observed and extracted via OPC-UA High Performance or S7+. 
 
 The idea is to have the three machines connected to one IED each. Each IED gathers the data by a different connector. To avoid subscribing to three different IEDs, the data is synchronized to one central parent device. Following table shows all available parameters.
 
@@ -136,7 +133,7 @@ Setup for each device a different connector.
 - IED-Child-Two
   - S7+
 - IED-Child-Three
-  - S7
+  - S7+
 
 For the OPC UA connection add the data source from the running PLCSIM Advanced project.
 Use following IP: opc.tcp://<ip-plcsim-advanced>:4840 and select security to non and authentication to anonymous.
@@ -148,7 +145,7 @@ Browse the variables and add following elements. Choose the other options depend
 - WattUsage [lreal]
 ```
 
-For the S7+ connection add the data source with following [file](cfg-data/childs/s7_plus_data_import.zip).
+For the S7+ connection on the child 2 add the data source with following [file](cfg-data/childs/s7_plus_data_import.zip).
 From the import file select only following variables:
 
 ```
@@ -158,7 +155,7 @@ From the import file select only following variables:
 ```
 
 
-For the S7 connection add the tags and the data-source manually. Choose for the data-sourc Rack: 0, Slot: 1. Use the following graphic as reference, when adding the tags.
+For the S7+ connection on the child 3 add the tags and the data-source manually. Choose for the data-sourc Rack: 0, Slot: 1. Use the following graphic as reference, when adding the tags.
 
 ![iih_get_data_s7](docs/graphics/iih_get_data_s7.PNG)
 
