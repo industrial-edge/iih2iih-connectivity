@@ -96,7 +96,7 @@ Machine 3 - TestingNPackaging:
 ##### Configure the External Databus application
 
 Open the IEM where all IEDs are onboarded and navigate to **Data Connections**. 
-Select the External Databus and launch it for the Parent-IED. 
+Select the Databus and launch it for the Parent-IED. 
 
 - Enter /sync/# as the "Topic name".
 - Enter a username and password of your choice.
@@ -112,8 +112,8 @@ Please start with the Parent-IED before continuing with the Child-IEDs.
 
 ##### Configure IIH2IIH configuration
 
-Open the Common-Configurator on the Parent IED and naviagte to the "Home"-Tab.
-Click on Add Broker to add the external databus as the central mqtt-broker that should be used for the synchronization between the child and parent devices. As broker URL use the service-name of the external databus as in the following graphic. Use the port associated to the external databus (default: 9883) and enter the previously configured credentials.
+Open the Common-Configurator on the Parent IED and naviagte to the "Synchronize Data"-Tab.
+Click on Recieve Data to add the Industrial Information Hub as the central mqtt-broker that should be used for the synchronization between the child and parent devices (parent device recieves data from the childs). As broker URL use the service-name of the databus as in the following graphic. Use the port associated to the databus (default: 9883) and enter the previously configured credentials.
 
 ![](docs/graphics/iih_parent_home_broker_configuration.PNG)
 
@@ -160,25 +160,29 @@ For the S7+ connection on the child 3 add the tags and the data-source manually.
 ![iih_get_data_s7](docs/graphics/iih_get_data_s7.PNG)
 
 
-##### Configure OPC UA Model for Synchroninzation
+##### Send data to Parent device for Synchroninzation
 
 Please read the whole passage before configuring.
 
-Open the tap **Define Data** and navigate to OPC UA Model. There you see the option to import a OPC UA Data Model. For each device, depending if it is Child-One, -Two or -Three, use the respective files.
+Open the tap **Synchroninze Data** and navigate to Send. There first fill out the Add Data Destination form:
+  - Destination Type: Industrial Information Hub
+  - Display name
+  - Parent system name: name given to parent device
+  - MQTT host: service-name of the databus
+  - MQTT port: 1883
+  - user name: edge (same as databus)
+  - password: edge (same as databus)
+  - upload client certificate file
+  - upload client key file
+  - enable state to active
 
-- IED_One -> [**AssemblingMachineType.xml**](cfg-data/childs/AssemblingMachineType.xml) and [**AssemblingMachine.xml**](cfg-data/childs/EnclosureAssembly.xml)
-- IED_Two -> [**EnclosureAssemblyType.xml**](cfg-data/childs/EnclosureAssemblyType.xml) and [**EnclosureAssembly.xml**](cfg-data/childs/EnclosureAssembly.xml)
-- IED_Three -> [**TestingNPackagingType.xml**](cfg-data/childs/TestPackagingType.xml) and [**TestingNPackaging.xml**](cfg-data/childs/TestPackaging.xml)
+Repeat this proces on each child device.
 
-Always upload first the "...Type.xml" file, select the corresponding namespace and check all boxes when asked. See following graphic.
 
-When uploading the xml-file, without the *Type*-postfix, then select the corresponding namespace and **un**select all checkboxes.
-
-![iih_define_data_opc_ua_mode_option](docs/graphics/iih_define_data_opc_ua_mode_option.PNG)
 
 ##### Connect Data with OPC UA Model
 
-After enabling the data aquisition and importing the opc ua models, the connection needs to be mapped on the model. For this navigate to the tab **Define Data** and map the corresponding data source per drag'n drop to the available opc ua model. Use this illustration as reference:
+After enabling the data aquisition and importing the opc ua models, the connection needs to be mapped on the model. For this navigate to the tab **Manage Data** and map the corresponding data source per drag'n drop to the available opc ua model. Use this illustration as reference:
 
 ![iih_define_data_mapping](docs/graphics/iih_define_data_mapping.PNG)
 
